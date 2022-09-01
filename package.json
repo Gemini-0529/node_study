@@ -1,0 +1,22 @@
+{
+  "name": "study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gemini-0529/node_study.git"
+  },
+  "author": "zwb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gemini-0529/node_study/issues"
+  },
+  "homepage": "https://github.com/Gemini-0529/node_study#readme",
+  "dependencies": {
+    "md5": "^2.3.0"
+  }
+}
