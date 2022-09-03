@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 实现jsonp
+    const script = document.createElement('script')
+    const query = document.location.search
+    script.src = `http://localhost:3000/home${query}`
+    document.body.appendChild(script)
+    // 通过调用后端返回的函数，解决跨域
+    function getData(data) {
+      console.log(data);
+    }
+  </script>
+</body>
+</html>
