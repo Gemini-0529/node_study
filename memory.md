@@ -64,3 +64,21 @@ server.listen(3000,() => {
   console.log('server start');
 })
 ```
+#### 自动重启服务器
+> npm i -g nodemon
+启动服务器：nodemon 文件名
+
+#### 解析url中的路由和参数
+```js
+const url = require('url')
+//      /home    name=1                      参数解析成对象格式
+const {pathname, query} = url.parse(req.url, true)
+```
+#### package.json 添加调试命令
+> "dev":"nodemon core/http/createServer1.js"
+#### querystring模块解析参数
+```js
+const querystring = require('querystring')
+const params = "name:z&id=1"
+const obj = querystring.parse(params)// {name:'z',id:1}
+```
