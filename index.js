@@ -1,2 +1,6 @@
+// commonjs导入方式
 const {count, upperCase} = require('./core/exports_1')
-console.log(upperCase('gemini'));
+
+// es
+// import { upperCase, count } from './core/exports_1.js'
+console.log(upperCase('gemini'),count);
