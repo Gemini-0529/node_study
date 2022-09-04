@@ -82,3 +82,62 @@ const querystring = require('querystring')
 const params = "name:z&id=1"
 const obj = querystring.parse(params)// {name:'z',id:1}
 ```
+#### jsonp
+服务器端
+```js
+const http = require('http')
+const server = http.createServer()
+const url = require('url')
+
+server.on('request',(req,res) => {
+  const data = {id: 1,label: 'gemini'}
+  const senddata = JSON.stringify(data)
+  const {query} = url.parse(req.url, true)
+  // 拿到前端传的参数，作为函数名
+  const cbName = query.cb
+  // 通过给前端返回一个函数，前端调用他解决跨域
+  res.end(`${cbName}(${senddata})`)
+})
+
+server.listen(3000, () => {
+  console.log('server success');
+})
+```
+浏览器端
+```html
+<body>
+  <script>
+    // 实现jsonp
+    const script = document.createElement('script')
+    const query = document.location.search
+    script.src = `http://localhost:3000/home${query}`
+    document.body.appendChild(script)
+    // 通过调用后端返回的函数，解决跨域
+    function getData(data) {
+      console.log(data);
+    }
+  </script>
+</body>
+```
+#### CORS解决跨域
+服务器端
+```js
+const http = require('http')
+const server = http.createServer()
+const url = require('url')
+
+server.on('request',(req,res) => {
+  res.writeHead(200, {
+    "Content-Type": "application/json;charset=utf-8",
+    // cors 头
+    "access-control-allow-origin": "*"
+  })
+  const data = {id: 1,label: 'gemini'}
+  const senddata = JSON.stringify(data)
+  res.end(senddata)
+})
+
+server.listen(3000, () => {
+  console.log('server success');
+})
+```

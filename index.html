@@ -6,7 +6,8 @@
   <title>Document</title>
 </head>
 <body>
-  <script>
+  <!-- jsonp 解决跨域 -->
+  <!-- <script>
     // 实现jsonp
     const script = document.createElement('script')
     const query = document.location.search
@@ -16,6 +17,24 @@
     function getData(data) {
       console.log(data);
     }
+  </script> -->
+  <!-- cors 解决跨域 -->
+  <!-- <script>
+    fetch("http://localhost:3000")
+    .then(res=>res.json())
+    .then(res=>{
+      console.log(res);
+    })
+  </script> -->
+  <!-- 获取京东m 数据 -->
+  <script>
+    fetch('http://localhost:3000/home')
+    .then(res=>{
+      return res.json()
+    })
+    .then(res=>{
+      console.log(JSON.parse(res));
+    })
   </script>
 </body>
 </html>
