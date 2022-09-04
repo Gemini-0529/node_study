@@ -141,3 +141,15 @@ server.listen(3000, () => {
   console.log('server success');
 })
 ```
+#### events模块
+类似vue的事件总线，有on、emit、off等方法
+```js
+const Events = require('events')
+
+const bus = new Events()
+bus.on('mounted',data => {
+  console.log('事件监听',data);
+})
+
+bus.emit('mounted', [1,2,3])
+```
