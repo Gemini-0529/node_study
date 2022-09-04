@@ -153,3 +153,96 @@ bus.on('mounted',data => {
 
 bus.emit('mounted', [1,2,3])
 ```
+#### fs文件系统模块
+##### 创建文件
+```js
+const fs = require('fs')
+// 创建文件夹
+fs.mkdir('./assets', err => {
+  if(err) {
+    console.log('文件创建失败->',err);
+  }
+})
+// 修改文件名
+fs.rename('./assets','public', err => {
+  if(err) {
+    console.log('修改文件名失败->', err);
+  }
+})
+// 删除文件，
+// 前提是删除的目标没有子文件，否则会报 ENOTEMPTY(目录不为空)
+// 不能删自己
+fs.rmdir('./assets', err => {
+  if(err) {
+    console.log('目录不存在或不为空',err);
+  }
+})
+// 删除文件引用，不能删除文件夹
+fs.unlink('./test/j.js', err => {
+  if(err) {
+    console.log('删除失败->',err);
+  }
+})
+// 创建文件并写入内容（每次都会替换）
+fs.writeFile('./images.txt','1.jpg\n\r2.png', err => {
+  if(err) {
+    console.log('写文件失败->', err);
+  }
+})
+// 创建文件并追加内容
+fs.appendFile('./test.txt','1.jpg\n\r2.png', err => {
+  if(err) {
+    console.log('写文件失败->', err);
+  }
+})
+// 读取文件
+fs.readFile('./images.txt', 'utf-8', (err, data)=>{
+  if(!err) {
+    // 如果在路径后面没有规定格式，则需要将buffer数据转成utf-8格式
+    // console.log(data.toString("utf-8"));
+    console.log(data);
+  }
+})
+// 读取文件目录
+fs.readdir('./assets',(err,data) => {
+  if(!err) {
+    console.log(data);
+  }
+})
+// 读取文件详细信息
+fs.stat('./assets/b',(err,data)=> {
+  if(!err) {
+    // 是否文件
+    console.log(data.isFile());
+    // 是否文件夹
+    console.log(data.isDirectory());
+  }
+})
+
+```
+##### 同步删除目录
+> 最好不用，因为node环境执行的js代码是服务器端代码，所以大部分在服务器运行期反复执行业务逻辑的代码必须使用异步代码，否则同步代码在执行期间，服务器将停止响应
+```js
+// async 解决删除目录，文件未删除，会阻塞后续处理，所以可以删除成功
+fs.readdir('./assets', (err,data)=> {
+  data.forEach(item => {
+    fs.unlinkSync(`./assets/${item}`)
+  })
+  fs.rmdir('./assets', err=> {
+    console.log(err);
+  })
+})
+```
+##### promise方案删除目录
+```js
+const fs = require('fs').promises
+
+fs.readdir('./assets').then(async data => {
+  let parr = []
+  data.forEach(item => {
+    parr.push(fs.unlink(`./assets/${item}`))
+  })
+  await Promise.all(parr)
+  await fs.rmdir('./assets')
+})
+```
