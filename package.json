@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon core/events/emitData.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,6 @@
   },
   "homepage": "https://github.com/Gemini-0529/node_study#readme",
   "dependencies": {
-    "md5": "^2.3.0"
+    "cheerio": "^1.0.0-rc.12"
   }
 }
