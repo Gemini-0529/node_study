@@ -246,3 +246,58 @@ fs.readdir('./assets').then(async data => {
   await fs.rmdir('./assets')
 })
 ```
+#### stream模块
+读取文件流
+```js
+const fs = require('fs')
+
+const rs = fs.createReadStream('./test.txt','utf-8')
+// 读取文件流
+rs.on('data', chunk=> {
+  console.log('接收数据流->',chunk);
+})
+// 读取结束
+rs.on('end', ()=> {
+  console.log('end');
+})
+rs.on('error',err=>{
+  console.log(err);
+})
+```
+写入文件流
+```js
+const fs = require('fs')
+const ws = fs.createWriteStream('./test2.txt','utf-8')
+const rs = fs.createReadStream('./test.txt','utf-8')
+// 读取到文件流后，写入新文件
+rs.on('data',chunk=>{
+  ws.write(chunk)
+})
+rs.on('end',()=>{
+  console.log('end---');
+})
+rs.on('error',err=>{
+  console.log(err);
+})
+```
+复制粘贴大型文件流
+```js
+const fs = require('fs')
+const rs = fs.createReadStream('./test.txt','utf-8')
+const ws = fs.createWriteStream('./test3.txt','utf-8')
+// 复制粘贴大型文件流
+rs.pipe(ws)
+```
+#### zlib 模块
+##### gzip压缩文件
+```js
+const fs = require('fs')
+const zlib = require('zlib')
+
+const gzip = zlib.createGzip()
+
+const rs = fs.createReadStream('./a.txt','utf-8')
+const ws = fs.createWriteStream('./b.txt','utf-8')
+
+rs.pipe(gzip).pipe(ws)
+```
