@@ -280,7 +280,7 @@ rs.on('error',err=>{
   console.log(err);
 })
 ```
-复制粘贴大型文件流
+流，分为三个部分（origin pipe target）,语法是origin.pipe(target)，让数据从origin流向了target
 ```js
 const fs = require('fs')
 const rs = fs.createReadStream('./test.txt','utf-8')
@@ -300,4 +300,52 @@ const rs = fs.createReadStream('./a.txt','utf-8')
 const ws = fs.createWriteStream('./b.txt','utf-8')
 
 rs.pipe(gzip).pipe(ws)
+```
+#### crypto
+提供通用的加密哈希算法
+> md5算法
+```js
+const crypto = require('crypto')
+// 转成md5格式的hash算法
+const hash = crypto.createHash('md5')// md5、sha1
+hash.update('hello')
+
+console.log(hash.digest('hex'));// 以16进制输出
+```
+> hmac算法，需要一个密钥，更加安全
+```js
+const crypto = require('crypto')
+
+const hash = crypto.createHmac('sha1')
+
+hash.update('hello')
+
+console.log(hash.digest('hex'));
+```
+> aes算法
+```js
+const crypto = require('crypto')
+
+// 加密          
+function encrypt(key, iv, data) {
+                                  // 加密算法       16字节的密钥
+  const dep = crypto.createCipheriv('aes-128-cbc', key, iv)
+              // 加密的数据，二进制加密，输出16进制
+  return dep.update(data, 'binary', 'hex') + dep.final('hex')
+}
+
+// 解密
+function decrypt(key, iv, crypted) {
+  // buffer对象转成二进制
+  const data = Buffer.from(crypted, 'hex').toString('binary')
+  const dep = crypto.createDecipheriv('aes-128-cbc', key, iv)
+  return dep.update(data, 'binary', 'utf8') + dep.final('utf8')
+}
+// 测试加密算法
+const key = 'abcdefghijklmnop'
+const iv = 'bbcdefghijklmnop'
+const enres = encrypt(key, iv, 'hello')// 加密
+const deres = decrypt(key, iv, enres)// 解密
+console.log('加密->',enres);
+console.log('解密->',deres);
 ```
