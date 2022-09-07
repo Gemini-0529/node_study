@@ -349,3 +349,5 @@ const deres = decrypt(key, iv, enres)// 解密
 console.log('加密->',enres);
 console.log('解密->',deres);
 ```
+#### 匹配路由、api
+通过 **const url = new URL(req.url, "http://127.0.0.1").pathname**取到路由后，在路由表里匹配对应函数，res响应内容
