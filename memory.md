@@ -409,3 +409,18 @@ app.get('/detail/:id', (req, res) => {
 ```js
 app.get('/home',回调函数=》中间件)
 ```
+如果需要每个接口都校验token，需要使用应用级别中间件
+```js
+> app.use(路由，中间件)没有路由，则之后所有路由都会进入中间件，写了路由，跟app.get('/home',cb1)一样的效果
+app.use(cb1)
+function cb1(req, res, next) {
+  console.log('应用级别中间件');
+  next()
+}
+// 之后的所有路由都会进入cb1中间件
+function cb2(req, res) {
+  console.log('执行中间件2');
+  res.send('loading...')
+}
+app.get('/home', [cb2])
+```

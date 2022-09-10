@@ -20,14 +20,15 @@ app.get(
 )
 // 写法2，完美
 function cb1(req, res, next) {
-  console.log('执行中间件1');
+  console.log('应用级别中间件');
   next()
 }
+app.use(cb1)
 function cb2(req, res) {
   console.log('执行中间件2');
   res.send('loading...')
 }
-app.get('/home', [cb1, cb2])
+app.get('/home', [cb2])
 
 app.listen(3000, () => {
   console.log('express start');
