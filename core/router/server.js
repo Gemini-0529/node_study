@@ -13,11 +13,11 @@ function start() {
       console.log(url.pathname);
       try {
         // 匹配到路由、api
-        router[url.pathname](res);
+        router[url.pathname](req, res);
       } catch (err) {
         // 未匹配到路由、api
         console.log(err);
-        router["/404"](res);
+        router["/404"](req, res);
       }
       res.end();
     })

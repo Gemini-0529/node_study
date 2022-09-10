@@ -6,13 +6,13 @@ function h(res,path,status) {
   res.write(fs.readFileSync(path));
 }
 module.exports = {
-  '/home': res => {
+  '/home': (req, res) => {
     h(res, './static/home.html', 200)
   },
-  '/login': res => {
+  '/login': (req, res) => {
     h(res, './static/login.html', 200)
   },
-  '/404': res => {
+  '/404': (req, res) => {
     res.writeHead(404, {
       "content-Type": "text/html;charset=utf-8"
     })
