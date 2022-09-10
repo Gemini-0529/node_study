@@ -357,3 +357,23 @@ console.log('解密->',deres);
 const mime = require('mime')
 mime.getType('.css')
 ```
+#### express
+> 基于 Node.js 平台，快速、开放、极简的web开发框架
+
+```js
+> npm install express
+
+const express = require('express')
+
+const app = express()
+app.get('/', (req, res) => {
+  // res.write('hello')
+  // res.end()
+  // 可以简写为：
+  res.send('hello')
+})
+
+app.listen(3000, () => {
+  console.log('server start...')
+})
+```
