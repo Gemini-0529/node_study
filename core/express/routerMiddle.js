@@ -14,8 +14,17 @@ router.get('/login', (req, res) => {
 // post请求参数
 router.post('/loginpost', (req, res) => {
   console.log(req.body);
+  if(req.body.uname==='zwb' && req.body.pwd==='123456') {
+    res.send({
+      data: 1
+    })
+  }else {
+    res.send({
+      data: 0
+    })
+  }
   // res.send('路由级别中间件   login')
-  res.send(req.body)
+  // res.send(req.body)
 })
 
 module.exports = router

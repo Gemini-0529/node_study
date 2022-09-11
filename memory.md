@@ -457,3 +457,18 @@ app.use((req, res) => {
   res.status(404).send('not found')
 })
 ```
+##### 获取请求参数
+```js
+// 使用express内置的解析post请求参数的中间件
+app.use(express.urlencoded({extended: false}))// uname=124&pwd=122
+app.use(express.json())// {"uname":123,"pwd":234}
+```
+##### 托管静态资源
+```js
+// 托管静态资源的中间件，会在static文件夹中找请求的文件
+// http://localhost:3000/index.html
+app.use(express.static('static'))
+// 或加资源路径，指定文件夹下的资源
+// http://localhost:3000/public/index.html
+app.use('/public',express.static('public'))
+```
