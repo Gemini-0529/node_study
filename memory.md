@@ -472,3 +472,5 @@ app.use(express.static('static'))
 // http://localhost:3000/public/index.html
 app.use('/public',express.static('public'))
 ```
+##### 服务端渲染
+前端做好静态页面，动态效果。提供给后端，后端用真实数据替换掉假数据，生成 html传给前端
