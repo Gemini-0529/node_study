@@ -510,3 +510,19 @@ router.get('/login', (req, res) => {
     <%}%>
   </ul>
 ```
+#### koa库
+koa由 express 原班人马打造的，致力于成为一个更小的，更富有表现力，更健壮的web框架
+```js
+const Koa = require('koa')
+
+const app = new Koa()
+
+app.use((ctx, next) => {
+  // ctx.response.body = '<h1>hello world</h1>' 或可以省略 response
+  ctx.body = {id:1}
+})
+app.listen(3000)
+```
+#### 对比 express 和 koa
+同步效果一样，加入异步代码，koa更符合逻辑
+> koa执行中间件顺序像洋葱，执行完这个中间件，会返回到上一个中间件
