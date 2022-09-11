@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  home 模板
+  <%# 引入公共头部文件，showAd可以控制头部中的广告部分是否显示%>
+  <%- include("./header.ejs", {showAd: true})%>
+  <ul>
+    <%for(let i=0;i<list.length;i++){ %>
+      <li><%= list[i]%></li>
+    <%}%>
+  </ul>
+  <div>
+    展示后端返回的代码片段
+    <%- code%>
+  </div>
+  <%# 这里面放注释文字，用户不会看到%>
+</body>
+</html>

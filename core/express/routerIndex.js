@@ -1,6 +1,13 @@
 const express = require('express')
 const app = express()
 const router = require('./routerMiddle')
+
+// 配置模板引擎
+// 模板存放的文件夹，路径
+app.set('views',"./views")
+// 引擎
+app.set('view engine', 'ejs')
+
 // 使用express内置的解析post请求参数的中间件
 app.use(express.urlencoded({extended: false}))// uname=124&pwd=122
 app.use(express.json())// {"uname":123,"pwd":234}

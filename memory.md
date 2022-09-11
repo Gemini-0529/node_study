@@ -474,3 +474,39 @@ app.use('/public',express.static('public'))
 ```
 ##### 服务端渲染
 前端做好静态页面，动态效果。提供给后端，后端用真实数据替换掉假数据，生成 html传给前端
+###### 常用命令
+1. res.render('模板名称', {携带数据})
+2. res.redirect('路由')
+###### 配置模板
+```js
+// 配置模板引擎
+> npm i ejs
+// 模板存放的文件夹，路径
+app.set('views',"./views")
+// 引擎
+app.set('view engine', 'ejs')
+
+// 匹配到login路由，在views中找到对应模板返回给前端
+router.get('/login', (req, res) => {
+  // 返回views模板文件夹中的 login模板，可以携带数据过去
+  // ejs文件内使用 <%=property%> 语法替换掉静态内容
+  res.render('login',{title: 'node项目'})
+})
+```
+###### ejs文件使用数据库返回的数据
+> <%= 变量名 %>     类似vue {{list}}
+
+> <% 条件表达式 %>
+
+> <%- 代码片段%>   解析传入的代码片段字符串 code:'<b>这是代码片段</b>'
+
+>  <%# 这里面放注释文字，用户不会看到%>
+
+```js
+// home.ejs
+<ul>
+    <%for(let i=0;i<list.length;i++){ %>
+      <li><%= list[i]%></li>
+    <%}%>
+  </ul>
+```
