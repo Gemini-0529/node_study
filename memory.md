@@ -424,3 +424,36 @@ function cb2(req, res) {
 }
 app.get('/home', [cb2])
 ```
+##### 路由级别中间件
+> 使用 express.Router() 创建的路由对象是路由中间件
+```js
+const express = require('express')
+
+const router = express.Router()
+// 路由级别中间件
+router.get('/home', (req, res) => {
+  res.send('路由级别中间件   home')
+})
+router.get('/login', (req, res) => {
+  res.send('路由级别中间件   login')
+})
+
+module.exports = router
+
+//index.js
+
+// 应用级别中间件
+//匹配到 /api的会进入 其中的路由级别中间件
+app.use('/api',router)
+```
+
+##### 错误中间件
+```js
+// 其他路由，应用中间件。。。
+
+// 注册错误中间件，写在最后
+app.use((req, res) => {
+  // res.send 默认的状态玛是200 ，需要重写status
+  res.status(404).send('not found')
+})
+```
