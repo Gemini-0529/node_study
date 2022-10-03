@@ -164,7 +164,7 @@ fs.mkdir('./assets', err => {
   }
 })
 // 修改文件名
-fs.rename('./assets','public', err => {
+fs.rename('./assets','newFileName', err => {
   if(err) {
     console.log('修改文件名失败->', err);
   }
@@ -459,9 +459,19 @@ app.use((req, res) => {
 ```
 ##### 获取请求参数
 ```js
-// 使用express内置的解析post请求参数的中间件
-app.use(express.urlencoded({extended: false}))// uname=124&pwd=122
-app.use(express.json())// {"uname":123,"pwd":234}
+// 获取get请求参数
+const router = express.Router()
+router.get("/", (req, res)=> {
+	console.log(req.query)
+})
+// 使用express内置的解析post请求参数的中间件,兼容form表单和json格式参数
+app.use(express.urlencoded({extended: false}))//用于form编码格式 https://xxx?uname=124&pwd=122
+app.use(express.json())// json串格式的参数{"uname":123,"pwd":234}
+
+// 使用参数
+router.post("/", (req,res)=>{
+	console.log(req.body) 解析post参数两个中间件必须提前注册好
+})
 ```
 ##### 托管静态资源
 ```js

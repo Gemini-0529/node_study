@@ -17,6 +17,8 @@ router.get('/login', (req, res) => {
 })
 // post请求参数
 router.post('/loginpost', (req, res) => {
+  // 获取post请求的参数，
+  // 前提是在请求上方注册两种post发送参数的中间件 express.json()和express.urlencoded({extended: false})
   console.log(req.body);
   if(req.body.uname==='zwb' && req.body.pwd==='123456') {
     res.send({
